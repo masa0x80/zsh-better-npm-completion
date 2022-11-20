@@ -87,8 +87,10 @@ _zbnc_npm_uninstall_completion() {
 
 _zbnc_npm_run_completion() {
 
-  # Only run on `npm run ?`
-  [[ ! "$(_zbnc_no_of_npm_args)" = "3" ]] && return
+  if [[ "$(_zbnc_no_of_npm_args)" -gt 3 ]]; then
+    _files
+    return
+  fi
 
   # Look for a package.json file
   local package_json="$(_zbnc_recursively_look_for package.json)"
